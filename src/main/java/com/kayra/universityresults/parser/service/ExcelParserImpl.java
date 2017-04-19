@@ -31,13 +31,23 @@ public class ExcelParserImpl implements ExcelParser {
 
 	public City getCity(Row row) {
 		String val = row.getCell(0).getStringCellValue().trim();
-		String cityName = val.substring(val.indexOf("(") + 1, val.indexOf(")"));
+		String cityName = "";
+		if (val.contains("(")) {
+			cityName = val.substring(val.indexOf("(") + 1, val.indexOf(")"));
+		} else {
+			cityName = val.split(" ")[0];
+		}
 		return new City(cityName);
 	}
 
 	public University getUniversity(Row row) {
 		String val = row.getCell(0).getStringCellValue().trim();
-		String uniName = val.substring(0, val.indexOf("(") - 1);
+		String uniName = "";
+		if (val.contains("(")) {
+			uniName = val.substring(0, val.indexOf("(") - 1);
+		} else {
+			uniName = val;
+		}
 		return new University(uniName);
 	}
 
@@ -91,7 +101,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	private void checkEnglishDepartmentTest(Department department) {
-		if (department.getName().contains("(Ýngilizce)")) {
+		if (department.getName().contains("(Ä°ngilizce)")) {
 			department.setEnglish(true);
 		}
 	}
@@ -116,7 +126,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	private void checkNight(Department department) {
-		if (department.getName().contains("(ÝÖ)")) {
+		if (department.getName().contains("(Ä°.Ã–)")) {
 			department.setNight(true);
 		}
 	}
