@@ -6,6 +6,7 @@ public class Department {
 
 	private int id;
 	private University university;
+	private Faculty faculty;
 	private String name;
 	private short quota;
 	private short settled;
@@ -35,6 +36,14 @@ public class Department {
 
 	public void setUniversity(University university) {
 		this.university = university;
+	}
+
+	public Faculty getFaculty() {
+		return faculty;
+	}
+
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
 	}
 
 	public String getName() {
@@ -153,6 +162,7 @@ public class Department {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((faculty == null) ? 0 : faculty.hashCode());
 		result = prime * result + id;
 		result = prime * result + (isEnglish ? 1231 : 1237);
 		result = prime * result + (isForKktc ? 1231 : 1237);
@@ -186,6 +196,11 @@ public class Department {
 		if (getClass() != obj.getClass())
 			return false;
 		Department other = (Department) obj;
+		if (faculty == null) {
+			if (other.faculty != null)
+				return false;
+		} else if (!faculty.equals(other.faculty))
+			return false;
 		if (id != other.id)
 			return false;
 		if (isEnglish != other.isEnglish)
