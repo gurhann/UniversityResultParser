@@ -20,5 +20,7 @@ public interface ExcelParser {
 	
 	public Department createDepartment(Row row);
 
+	boolean checkPrivateUniversity(Row row);
+
 	
 }
