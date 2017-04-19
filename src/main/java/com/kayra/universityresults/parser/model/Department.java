@@ -6,7 +6,6 @@ public class Department {
 
 	private int id;
 	private University university;
-	private Department department;
 	private String name;
 	private short quota;
 	private short settled;
@@ -20,6 +19,7 @@ public class Department {
 	private boolean isEnglish = false;
 	private boolean isMTOK = false;
 	private Scholarship scholarship;
+	private boolean isForKktc = false;
 
 	public int getId() {
 		return id;
@@ -35,14 +35,6 @@ public class Department {
 
 	public void setUniversity(University university) {
 		this.university = university;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
 	}
 
 	public String getName() {
@@ -149,13 +141,21 @@ public class Department {
 		this.scholarship = scholarship;
 	}
 
+	public boolean isForKktc() {
+		return isForKktc;
+	}
+
+	public void setForKktc(boolean isForKktc) {
+		this.isForKktc = isForKktc;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((department == null) ? 0 : department.hashCode());
 		result = prime * result + id;
 		result = prime * result + (isEnglish ? 1231 : 1237);
+		result = prime * result + (isForKktc ? 1231 : 1237);
 		result = prime * result + (isMTOK ? 1231 : 1237);
 		result = prime * result + (isNight ? 1231 : 1237);
 		long temp;
@@ -186,14 +186,11 @@ public class Department {
 		if (getClass() != obj.getClass())
 			return false;
 		Department other = (Department) obj;
-		if (department == null) {
-			if (other.department != null)
-				return false;
-		} else if (!department.equals(other.department))
-			return false;
 		if (id != other.id)
 			return false;
 		if (isEnglish != other.isEnglish)
+			return false;
+		if (isForKktc != other.isForKktc)
 			return false;
 		if (isMTOK != other.isMTOK)
 			return false;
