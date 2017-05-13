@@ -10,11 +10,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import com.kayra.universityresults.parser.constant.InfoType;
 import com.kayra.universityresults.parser.constant.RowType;
 import com.kayra.universityresults.parser.model.City;
 import com.kayra.universityresults.parser.model.Department;
 import com.kayra.universityresults.parser.model.Faculty;
 import com.kayra.universityresults.parser.model.University;
+import com.kayra.universityresults.parser.persistence.MongoDriver;
 import com.kayra.universityresults.parser.service.ExcelParser;
 import com.kayra.universityresults.parser.service.ExcelParserImpl;
 
@@ -23,18 +25,18 @@ public class App {
 	private ExcelParser parser;
 	private Sheet sheet;
 
+	private List<University> universityList = new ArrayList<University>();
+	private List<Faculty> facultyList = new ArrayList<Faculty>();
+	private List<Department> departmentList = new ArrayList<Department>();
+	private List<City> cityList = new ArrayList<City>();
+	private List<String> scoreTypesList = new ArrayList<String>();
+
 	private App(ExcelParser parser, Sheet sheet) {
 		this.parser = parser;
 		this.sheet = sheet;
 	}
 
 	private void readDocument() {
-
-		List<University> universityList = new ArrayList<University>();
-		List<Faculty> facultyList = new ArrayList<Faculty>();
-		List<Department> departmentList = new ArrayList<Department>();
-		List<City> cityList = new ArrayList<City>();
-		List<String> scoreTypesList = new ArrayList<String>();
 
 		University currentUniversity = null;
 		Faculty currentFaculty = null;
@@ -64,7 +66,7 @@ public class App {
 				department.setFaculty(currentFaculty);
 				department.setUniversity(currentUniversity);
 				departmentList.add(department);
-				if(!scoreTypesList.contains(department.getScoreType())) {
+				if (!scoreTypesList.contains(department.getScoreType())) {
 					scoreTypesList.add(department.getScoreType());
 				}
 				break;
@@ -72,6 +74,32 @@ public class App {
 				throw new RuntimeException();
 			}
 		}
+
+	}
+
+	private void insertToDB() {
+		MongoDriver instance = MongoDriver.getInstance();
+
+		departmentList.stream().forEach((department) -> {
+			instance.insertDepartment(department);
+		});
+
+		universityList.stream().forEach((university) -> {
+			instance.insertExtInfo(university, InfoType.UNIVERSITY);
+		});
+
+		cityList.stream().forEach((city) -> {
+			instance.insertExtInfo(city.getName(), InfoType.CITY);
+		});
+
+		facultyList.stream().forEach((faculty) -> {
+			instance.insertExtInfo(faculty.getName(), InfoType.FACULTY);
+		});
+
+		scoreTypesList.stream().forEach((scoreType) -> {
+			instance.insertExtInfo(scoreType, InfoType.SCORE_TYPE);
+		});
+
 	}
 
 	private boolean checkPrivateUniversity(int i) {
@@ -93,6 +121,7 @@ public class App {
 			Sheet sheet = workbook.getSheetAt(0);
 			App app = new App(new ExcelParserImpl(), sheet);
 			app.readDocument();
+			app.insertToDB();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
