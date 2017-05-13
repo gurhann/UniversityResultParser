@@ -48,12 +48,12 @@ public class ExcelParserTest {
 	@Test
 	public void uniNameAndCityTest() {
 		assertEquals("BOLU", parser.getCity(sheet.getRow(0)).getName());
-		assertEquals("ABANT ÝZZET BAYSAL ÜNÝVERSÝTESÝ", parser.getUniversity(sheet.getRow(0)).getName());
+		assertEquals("ABANT Ä°ZZET BAYSAL ÃœNÄ°VERSÄ°TESÄ°", parser.getUniversity(sheet.getRow(0)).getName());
 	}
 
 	@Test
 	public void facultynameTest() {
-		assertEquals("Eðitim Fakültesi", parser.getFaculty(sheet.getRow(3)).getName());
+		assertEquals("EÄŸitim FakÃ¼ltesi", parser.getFaculty(sheet.getRow(3)).getName());
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class ExcelParserTest {
 		Department createdDep = new Department();
 
 		createdDep.setId(100110433);
-		createdDep.setName("Diþ Hekimliði Fakültesi");
+		createdDep.setName("DiÅŸ HekimliÄŸi FakÃ¼ltesi");
 		createdDep.setQuota((short) 93);
 		createdDep.setSettled((short) 93);
 		createdDep.setScoreType("MF-3");
@@ -81,7 +81,7 @@ public class ExcelParserTest {
 		Department createdDep = new Department();
 
 		createdDep.setId(100110027);
-		createdDep.setName("Fen Bilgisi Öðretmenliði (Ýngilizce)");
+		createdDep.setName("Fen Bilgisi Ã–ÄŸretmenliÄŸi (Ä°ngilizce)");
 		createdDep.setQuota((short) 63);
 		createdDep.setSettled((short) 62);
 		createdDep.setScoreType("MF-2");
@@ -102,7 +102,7 @@ public class ExcelParserTest {
 		Department createdDep = new Department();
 
 		createdDep.setId(100430479);
-		createdDep.setName("Elektrik-Elektronik Mühendisliði (M.T.O.K.) (ÝÖ)");
+		createdDep.setName("Elektrik-Elektronik MÃ¼hendisliÄŸi (M.T.O.K.) (Ä°Ã–)");
 		createdDep.setQuota((short) 13);
 		createdDep.setSettled((short) 13);
 		createdDep.setScoreType("MF-4");
@@ -132,7 +132,7 @@ public class ExcelParserTest {
 		Department createdDep = new Department();
 
 		createdDep.setId(100110609);
-		createdDep.setName("Diþ Hekimliði Fakültesi (KKTC Uyruklu)");
+		createdDep.setName("DiÅŸ HekimliÄŸi FakÃ¼ltesi (KKTC Uyruklu)");
 		createdDep.setQuota((short) 1);
 		createdDep.setScoreType("MF-3");
 		createdDep.setMaxPoint(-1.0);
