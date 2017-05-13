@@ -4,7 +4,9 @@
 	<groupId>com.kayra</groupId>
 	<artifactId>UniversityResultsParser</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -21,6 +23,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
-
+		
 	</dependencies>
 </project>
