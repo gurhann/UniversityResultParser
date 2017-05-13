@@ -245,4 +245,12 @@ public class Department {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", university=" + university + ", faculty=" + faculty + ", name=" + name + ", quota=" + quota + ", settled=" + settled + ", scoreType=" + scoreType
+				+ ", minPoint=" + minPoint + ", maxPoint=" + maxPoint + ", succesSequence=" + succesSequence + ", topStudentOfSchoolMinPoint=" + topStudentOfSchoolMinPoint
+				+ ", topStudentOfSchoolMaxPoint=" + topStudentOfSchoolMaxPoint + ", isNight=" + isNight + ", isEnglish=" + isEnglish + ", isMTOK=" + isMTOK + ", scholarship=" + scholarship
+				+ ", isForKktc=" + isForKktc + "]";
+	}
+
 }

@@ -84,4 +84,9 @@ public class University {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "University [id=" + id + ", name=" + name + ", city=" + city + ", isPrivate=" + isPrivate + "]";
+	}
+
 }

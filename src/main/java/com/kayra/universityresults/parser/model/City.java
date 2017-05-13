@@ -57,4 +57,8 @@ public class City {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "City [id=" + id + ", name=" + name + "]";
+	}
 }
