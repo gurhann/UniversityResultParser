@@ -34,6 +34,7 @@ public class App {
 		List<Faculty> facultyList = new ArrayList<Faculty>();
 		List<Department> departmentList = new ArrayList<Department>();
 		List<City> cityList = new ArrayList<City>();
+		List<String> scoreTypesList = new ArrayList<String>();
 
 		University currentUniversity = null;
 		Faculty currentFaculty = null;
@@ -63,6 +64,9 @@ public class App {
 				department.setFaculty(currentFaculty);
 				department.setUniversity(currentUniversity);
 				departmentList.add(department);
+				if(!scoreTypesList.contains(department.getScoreType())) {
+					scoreTypesList.add(department.getScoreType());
+				}
 				break;
 			default:
 				throw new RuntimeException();
