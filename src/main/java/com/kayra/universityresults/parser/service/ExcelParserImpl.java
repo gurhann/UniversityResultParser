@@ -17,7 +17,7 @@ import com.kayra.universityresults.parser.model.University;
 public class ExcelParserImpl implements ExcelParser {
 
 	public RowType getRowType(Row row) {
-		String val = row.getCell(0).getStringCellValue();
+		String val = row.getCell(0).getRichStringCellValue().getString().trim();
 		if (StringUtils.isBlank(val)) {
 			return RowType.FACULTY;
 		}
@@ -30,7 +30,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	public City getCity(Row row) {
-		String val = row.getCell(0).getStringCellValue().trim();
+		String val = row.getCell(0).getRichStringCellValue().getString().trim();
 		String cityName = "";
 		if (val.contains("(")) {
 			cityName = val.substring(val.indexOf("(") + 1, val.indexOf(")"));
@@ -41,7 +41,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	public University getUniversity(Row row) {
-		String val = row.getCell(0).getStringCellValue().trim();
+		String val = row.getCell(0).getRichStringCellValue().getString().trim();
 		String uniName = "";
 		if (val.contains("(")) {
 			uniName = val.substring(0, val.indexOf("(") - 1);
@@ -53,11 +53,11 @@ public class ExcelParserImpl implements ExcelParser {
 
 	public Department createDepartment(Row row) {
 		Department department = new Department();
-		department.setId(NumberUtils.toInt(row.getCell(DepartmentColumn.ID.ordinal()).getStringCellValue(), AppConstant.NULL_NUMBER_COLUMN));
-		department.setName(row.getCell(DepartmentColumn.NAME.ordinal()).getStringCellValue());
+		department.setId(NumberUtils.toInt(row.getCell(DepartmentColumn.ID.ordinal()).getRichStringCellValue().getString(), AppConstant.NULL_NUMBER_COLUMN));
+		department.setName(row.getCell(DepartmentColumn.NAME.ordinal()).getRichStringCellValue().getString());
 		department.setQuota((short) getNumericIntVal(row.getCell(DepartmentColumn.QUOTA.ordinal()), AppConstant.ZERO_NUMBER_COLUMN));
 		department.setSettled((short) getNumericIntVal(row.getCell(DepartmentColumn.SETTLED.ordinal()), AppConstant.ZERO_NUMBER_COLUMN));
-		department.setScoreType(row.getCell(DepartmentColumn.SCORE_TYPE.ordinal()).getStringCellValue());
+		department.setScoreType(row.getCell(DepartmentColumn.SCORE_TYPE.ordinal()).getRichStringCellValue().getString());
 		department.setMinPoint(getNumericDoubleVal(row.getCell(DepartmentColumn.MIN_POINT.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
 		department.setSuccesSequence(getNumericIntVal(row.getCell(DepartmentColumn.SUCCESS_SEQUENCE.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
 		department.setMaxPoint(getNumericDoubleVal(row.getCell(DepartmentColumn.MAX_POINT.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
@@ -72,7 +72,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	public boolean checkPrivateUniversity(Row row) {
-		String val = row.getCell(1).getStringCellValue().trim();
+		String val = row.getCell(1).getRichStringCellValue().getString().trim();
 		if (val.contains(Scholarship.FIFTY.getDesc()) || val.contains(Scholarship.FULL.getDesc()) || val.contains(Scholarship.NO_SCHOLARSHIP.getDesc())
 				|| val.contains(Scholarship.TWENTY_FIVE.getDesc())) {
 			return true;
@@ -81,7 +81,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	public Faculty getFaculty(Row row) {
-		String val = row.getCell(1).getStringCellValue().trim();
+		String val = row.getCell(1).getRichStringCellValue().getString().trim();
 		return new Faculty(val);
 	}
 
@@ -97,7 +97,7 @@ public class ExcelParserImpl implements ExcelParser {
 			return defaultVal;
 		}
 
-		return NumberUtils.toDouble(cell.getStringCellValue().replaceAll(",", "."), defaultVal);
+		return NumberUtils.toDouble(cell.getRichStringCellValue().getString().replaceAll(",", "."), defaultVal);
 	}
 
 	private void checkEnglishDepartmentTest(Department department) {
@@ -126,7 +126,7 @@ public class ExcelParserImpl implements ExcelParser {
 	}
 
 	private void checkNight(Department department) {
-		if (department.getName().contains("(İ.Ö)")) {
+		if (department.getName().contains("(İÖ)")) {
 			department.setNight(true);
 		}
 	}
