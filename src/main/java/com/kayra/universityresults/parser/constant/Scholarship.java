@@ -1,7 +1,7 @@
 package com.kayra.universityresults.parser.constant;
 
 public enum Scholarship {
-	FULL("(Tam Burslu)"), FIFTY("(%50 Burslu)"), TWENTY_FIVE("(%75 Burslu)"), NO_SCHOLARSHIP("(Ücretli)");
+	FULL("(Tam Burslu)"), FIFTY("(%50 Burslu)"), TWENTY_FIVE("(%25 Burslu)"), SEVENTY_FIVE("%75 Burslu"), NO_SCHOLARSHIP("(Ücretli)");
 
 	private String desc;
 
