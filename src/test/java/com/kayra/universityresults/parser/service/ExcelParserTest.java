@@ -1,6 +1,6 @@
 package com.kayra.universityresults.parser.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -91,7 +91,7 @@ public class ExcelParserTest {
 		createdDep.setEnglish(true);
 		createdDep.setTopStudentOfSchoolMinPoint(-1);
 		createdDep.setTopStudentOfSchoolMaxPoint(-1);
-		
+
 		assertEquals(createdDep, department);
 
 	}
@@ -119,11 +119,11 @@ public class ExcelParserTest {
 	@Test
 	public void privateDepartmentTest() {
 
-		assertEquals(false, parser.checkPrivateUniversity(sheet.getRow(13)));
-		assertEquals(true, parser.checkPrivateUniversity(sheet.getRow(16)));
-		assertEquals(true, parser.checkPrivateUniversity(sheet.getRow(17)));
-		assertEquals(true, parser.checkPrivateUniversity(sheet.getRow(18)));
-		assertEquals(true, parser.checkPrivateUniversity(sheet.getRow(19)));
+		assertNull(parser.checkPrivateUniversity(sheet.getRow(13)));
+		assertNotNull(parser.checkPrivateUniversity(sheet.getRow(16)));
+		assertNotNull(parser.checkPrivateUniversity(sheet.getRow(17)));
+		assertNotNull(parser.checkPrivateUniversity(sheet.getRow(18)));
+		assertNotNull(parser.checkPrivateUniversity(sheet.getRow(19)));
 	}
 
 	@Test

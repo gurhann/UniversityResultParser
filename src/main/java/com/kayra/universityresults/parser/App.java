@@ -111,7 +111,7 @@ public class App {
 			j++;
 
 		}
-		return parser.checkPrivateUniversity(sheet.getRow(j));
+		return parser.checkPrivateUniversity(sheet.getRow(j)) != null;
 	}
 
 	public static void main(String[] args) {

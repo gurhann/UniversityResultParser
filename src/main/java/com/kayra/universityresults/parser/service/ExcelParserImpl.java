@@ -63,6 +63,7 @@ public class ExcelParserImpl implements ExcelParser {
 		department.setMaxPoint(getNumericDoubleVal(row.getCell(DepartmentColumn.MAX_POINT.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
 		department.setTopStudentOfSchoolMinPoint(getNumericDoubleVal(row.getCell(DepartmentColumn.TOP_STUDENT_OF_SCHOOL_MIN_POINT.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
 		department.setTopStudentOfSchoolMaxPoint(getNumericDoubleVal(row.getCell(DepartmentColumn.TOP_STUDENT_OF_SCHOOL_MAX_POINT.ordinal()), AppConstant.NULL_NUMBER_COLUMN));
+		department.setScholarship(checkPrivateUniversity(row));
 		parseDepartmentName(department);
 		checkEnglishDepartmentTest(department);
 		checkKktcDepartment(department);
@@ -71,13 +72,20 @@ public class ExcelParserImpl implements ExcelParser {
 		return department;
 	}
 
-	public boolean checkPrivateUniversity(Row row) {
+	public Scholarship checkPrivateUniversity(Row row) {
 		String val = row.getCell(1).getRichStringCellValue().getString().trim();
-		if (val.contains(Scholarship.FIFTY.getDesc()) || val.contains(Scholarship.FULL.getDesc()) || val.contains(Scholarship.NO_SCHOLARSHIP.getDesc())
-				|| val.contains(Scholarship.TWENTY_FIVE.getDesc())) {
-			return true;
+		if (val.contains(Scholarship.NO_SCHOLARSHIP.getDesc())) {
+			return Scholarship.NO_SCHOLARSHIP;
+		} else if (val.contains(Scholarship.TWENTY_FIVE.getDesc())) {
+			return Scholarship.TWENTY_FIVE;
+		} else if (val.contains(Scholarship.FIFTY.getDesc())) {
+			return Scholarship.FIFTY;
+		} else if (val.contains(Scholarship.SEVENTY_FIVE.getDesc())) {
+			return Scholarship.SEVENTY_FIVE;
+		} else if (val.contains(Scholarship.FULL.getDesc())) {
+			return Scholarship.FULL;
 		}
-		return false;
+		return null;
 	}
 
 	public Faculty getFaculty(Row row) {

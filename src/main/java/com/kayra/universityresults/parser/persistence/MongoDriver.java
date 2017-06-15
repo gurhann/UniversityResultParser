@@ -9,6 +9,7 @@ import org.bson.Document;
 import com.kayra.universityresults.parser.constant.InfoType;
 import com.kayra.universityresults.parser.model.Department;
 import com.kayra.universityresults.parser.model.University;
+import com.kayra.universityresults.parser.util.StringUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -49,12 +50,24 @@ public class MongoDriver {
 			University university = department.getUniversity();
 			Document universityDoc = new Document("name", university.getName()).append("city", university.getCity().getName()).append("isPrivate", university.isPrivate());
 			String facultyName = department.getFaculty() != null ? department.getFaculty().getName() : null;
-			Document departmentDoc = new Document("name", department.getName()).append("university", universityDoc).append("faculty_name", facultyName).append("quota", department.getQuota())
-					.append("settled", department.getSettled()).append("score_type", department.getScoreType()).append("min_point", department.getMinPoint())
-					.append("max_point", department.getMaxPoint()).append("success_sequence", department.getSuccesSequence())
-					.append("top_students_of_school_min_point", department.getTopStudentOfSchoolMinPoint()).append("top_students_of_school_max_point", department.getTopStudentOfSchoolMaxPoint())
-					.append("is_night", department.isNight()).append("is_english", department.isEnglish()).append("is_mtok", department.isMTOK()).append("scholarship", department.getScholarship())
+			//@formatter:off
+			Document departmentDoc = new Document("name", department.getName())
+					.append("university", universityDoc)
+					.append("faculty_name", facultyName)
+					.append("quota", department.getQuota())
+					.append("settled", department.getSettled())
+					.append("score_type", department.getScoreType())
+					.append("min_point", department.getMinPoint())
+					.append("max_point", department.getMaxPoint())
+					.append("success_sequence", department.getSuccesSequence())
+					.append("top_students_of_school_min_point", department.getTopStudentOfSchoolMinPoint())
+					.append("top_students_of_school_max_point", department.getTopStudentOfSchoolMaxPoint())
+					.append("is_night", department.isNight())
+					.append("is_english", department.isEnglish())
+					.append("is_mtok", department.isMTOK())
+					.append("scholarship", StringUtil.toString(department.getScholarship()))
 					.append("is_for_kktc", department.isForKktc());
+			//@formatter:on
 			departmentCollection.insertOne(departmentDoc);
 		} catch (Exception e) {
 			e.printStackTrace();
