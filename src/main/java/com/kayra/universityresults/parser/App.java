@@ -63,7 +63,9 @@ public class App {
 				break;
 			case DEPARTMENT:
 				Department department = parser.createDepartment(row);
-				department.setFaculty(currentFaculty);
+				if (!department.getName().contains("Fakülte")) {
+					department.setFaculty(currentFaculty);
+				}
 				department.setUniversity(currentUniversity);
 				departmentList.add(department);
 				if (!scoreTypesList.contains(department.getScoreType())) {
