@@ -52,6 +52,7 @@ public class MongoDriver {
 			String facultyName = department.getFaculty() != null ? department.getFaculty().getName() : null;
 			//@formatter:off
 			Document departmentDoc = new Document("name", department.getName())
+					.append("_id", department.getId())
 					.append("university", universityDoc)
 					.append("faculty_name", facultyName)
 					.append("quota", department.getQuota())
